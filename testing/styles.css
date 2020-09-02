@@ -1,0 +1,59 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  height: 100vh;
+  display: grid;
+  font-size: 18px;
+}
+
+#app {
+  align-self: center;
+  justify-self: center;
+  background-color: #eee;
+  text-align: center;
+  width: 300px;
+  padding: 27px 18px;
+}
+
+h1 {
+  margin: 0;
+  padding-bottom: 18px;
+  font-size: 18px;
+}
+
+input,
+button {
+  padding: 9px;
+  font-size: 18px;
+  margin-bottom: 9px;
+}
+
+@keyframes spinner {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+#spin::before {
+  animation: 0.8s linear infinite spinner;
+  animation-play-state: inherit;
+  border: solid 5px #cfd0d1;
+  border-bottom-color: #1c87c9;
+  border-radius: 50%;
+  content: "";
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+}
+#spin {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  display: none;
+}
