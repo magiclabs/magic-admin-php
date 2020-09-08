@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('MAGIC_PACKAGE_FILE')) {
+if (!defined('MAGIC_PACKAGE_PATH')) {
     define('MAGIC_PACKAGE_PATH', __DIR__);
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once(MAGIC_ROOT_PATH . '/library/php-ecrecover/ecrecover_helper.php');
+require_once(MAGIC_PACKAGE_PATH.'/php-ecrecover/ecrecover_helper.php');
 require_once(MAGIC_PACKAGE_PATH.'/error.php');
 require_once(MAGIC_PACKAGE_PATH.'/utils/did_token.php');
 require_once(MAGIC_PACKAGE_PATH.'/utils/time.php');

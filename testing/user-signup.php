@@ -1,6 +1,6 @@
 <?php
 
-require_once('magic-init.php');
+require_once('magic-admin-php/magic-init.php');
 
 if (isset($_POST['type']) && $_POST['type'] == 'signup') {
   if(isset($_POST['email'])) {
