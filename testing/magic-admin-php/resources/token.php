@@ -1,5 +1,7 @@
 <?php
 
+namespace MagicAdmin;
+
 require_once(MAGIC_PACKAGE_PATH.'/php-ecrecover/ecrecover_helper.php');
 require_once(MAGIC_PACKAGE_PATH.'/error.php');
 require_once(MAGIC_PACKAGE_PATH.'/utils/did_token.php');

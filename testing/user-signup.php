@@ -14,13 +14,13 @@ if (isset($_POST['type']) && $_POST['type'] == 'signup') {
   );
 
   if ($did_token == null) {
-    $badRequestError = new BadRequestError(
+    $badRequestError = new \MagicAdmin\BadRequestError(
       'Authorization header is missing or header value is invalid'
     );
     echo $badRequestError->getErrorMessage();
   }
 
-  $magic = new Magic('sk_test_6F832D5FB8382105');
+  $magic = new \MagicAdmin\Magic('sk_test_6F832D5FB8382105');
   
   try {
     $magic->token->validate($did_token);
@@ -29,14 +29,14 @@ if (isset($_POST['type']) && $_POST['type'] == 'signup') {
     $user_meta = $magic->user->get_metadata_by_issuer($issuer);
     //var_dump($user_meta);
   } catch (Exception $e) {
-    $didTokenError = new DIDTokenError(
+    $didTokenError = new \MagicAdmin\DIDTokenError(
       'DID Token is invalid: ' . $e->getMessage()
     );
     echo $didTokenError->getErrorMessage();
   }
 
   if ($user_meta->data['email'] != $email) {
-    $unAuthorizedError = new UnAuthorizedError('UnAuthorized user login');
+    $unAuthorizedError = new \MagicAdmin\UnAuthorizedError('UnAuthorized user login');
     echo $unAuthorizedError->getErrorMessage();
   }
     

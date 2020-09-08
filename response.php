@@ -1,5 +1,6 @@
-
 <?php
+
+namespace MagicAdmin;
 
 class MagicResponse {
   public $content;

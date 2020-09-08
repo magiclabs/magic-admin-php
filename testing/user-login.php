@@ -14,20 +14,20 @@ if (isset($_POST['type']) && $_POST['type'] == 'login') {
   );
 
   if ($did_token == null) {
-    $badRequestError = new BadRequestError(
+    $badRequestError = new \MagicAdmin\BadRequestError(
       'Authorization header is missing or header value is invalid'
     );
     echo $badRequestError->getErrorMessage();
   }
 
-  $magic = new Magic('sk_test_6F832D5FB8382105');
+  $magic = new \MagicAdmin\Magic('sk_test_6F832D5FB8382105');
   
   try {
     $magic->token->validate($did_token);
     $issuer = $magic->token->get_issuer($did_token);
     $user_meta = $magic->user->get_metadata_by_issuer($issuer);
   } catch (Exception $e) {
-    $didTokenError = new DIDTokenError(
+    $didTokenError = new \MagicAdmin\DIDTokenError(
       'DID Token is invalid: ' . $e->getMessage()
     );
     echo $didTokenError->getErrorMessage();

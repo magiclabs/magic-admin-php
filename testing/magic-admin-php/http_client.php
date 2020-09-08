@@ -1,5 +1,7 @@
 <?php
 
+namespace MagicAdmin;
+
 require_once(MAGIC_PACKAGE_PATH.'/version.php');
 require_once(MAGIC_PACKAGE_PATH.'/config.php');
 require_once(MAGIC_PACKAGE_PATH.'/error.php');

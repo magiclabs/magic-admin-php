@@ -1,5 +1,7 @@
 <?php
 
+namespace MagicAdmin;
+
 require_once(MAGIC_PACKAGE_PATH.'/utils/did_token.php');
 require_once(MAGIC_PACKAGE_PATH.'/http_client.php');
 

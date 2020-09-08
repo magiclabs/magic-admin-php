@@ -1,5 +1,7 @@
 <?php
 
+namespace MagicAdmin;
+
 if (!defined('MAGIC_PACKAGE_PATH')) {
     define('MAGIC_PACKAGE_PATH', __DIR__);
 }

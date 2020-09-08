@@ -1,6 +1,8 @@
 <?php
 
-class MagicError extends Exception  {
+namespace MagicAdmin;
+
+class MagicError extends \Exception  {
 
     public $_message = "";
 
