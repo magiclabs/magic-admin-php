@@ -32,7 +32,7 @@ require_once('/path/to/magic-admin-php/magic-init.php');
 The bindings require the following extensions in order to work properly:
 
 -   [`curl`](https://secure.php.net/manual/en/book.curl.php)
--   [`ext-gmp`](https://www.php.net/manual/en/book.gmp.php)
+-   [`gmp`](https://www.php.net/manual/en/book.gmp.php)
 
 If you use Composer, these dependencies should be handled automatically. If you install manually, you'll want to make sure that these extensions are available.
 
