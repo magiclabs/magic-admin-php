@@ -8,3 +8,4 @@ namespace MagicAdmin\Exception;
  */
 
 class AuthenticationException extends RequestException {} 
+

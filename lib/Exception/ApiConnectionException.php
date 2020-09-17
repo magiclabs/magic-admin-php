@@ -7,4 +7,5 @@ namespace MagicAdmin\Exception;
  * the SDK can't connect to Magic's servers.
  */
 
-class ApiConnectionException extends MagicException {} 
+class ApiConnectionException extends MagicException {}
+

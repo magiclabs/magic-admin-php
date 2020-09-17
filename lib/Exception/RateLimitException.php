@@ -8,3 +8,4 @@ namespace MagicAdmin\Exception;
  */
 
 class RateLimitException extends RequestException {} 
+

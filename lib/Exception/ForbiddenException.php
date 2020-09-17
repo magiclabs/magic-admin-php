@@ -9,5 +9,4 @@ namespace MagicAdmin\Exception;
 
 class ForbiddenException extends RequestException {} 
 
-
-    
+ 

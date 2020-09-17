@@ -23,3 +23,4 @@ class MagicException extends \Exception  {
         return __class__ . '(message=' . $this->_message . ')';
     }
 }    
+

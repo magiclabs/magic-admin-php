@@ -1,6 +1,6 @@
 <?php
 
-require_once('magic-admin-php/init.php'); 
+require_once('vendor/autoload.php'); 
 
 if (isset($_POST['type']) && $_POST['type'] == 'login') {
   if(isset($_POST['email'])) {

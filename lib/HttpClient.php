@@ -17,20 +17,16 @@ define('API_SECRET_KEY_MISSING_MESSAGE',
 
 class RequestsClient {
 
-    public $_retries;
     public $_timeout;
-    public $_backoff_factor;
     public $_base_url;
     public $_api_secret_key;
     public $ch;
 
-    public function __construct($api_secret_key, $retries, $timeout, $backoff_factor) {
+    public function __construct($api_secret_key, $timeout) {
 
         $this->_api_secret_key = $api_secret_key;
         $this->_base_url = API_MAGIC_BASE_URL;
-        $this->_retries = $retries;
         $this->_timeout = $timeout;
-        $this->_backoff_factor = $backoff_factor;
     }
 
     public function _setup_curl() {
@@ -182,10 +178,5 @@ class RequestsClient {
                 $method
             );
         } 
-    } 
-
-    public function _micro_time_count() {
-        list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
     }
 }

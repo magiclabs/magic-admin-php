@@ -7,3 +7,4 @@ namespace MagicAdmin\Exception;
  */ 
 
 class ApiException extends RequestException {} 
+

@@ -12,9 +12,9 @@ class User {
     public $request_client;
     public $token;
 
-    public function __construct($api_secret_key, $retries, $timeout, $backoff_factor) {
+    public function __construct($api_secret_key, $timeout) {
         $this->token = new Token();
-        $this->request_client = new \MagicAdmin\RequestsClient($api_secret_key, $retries, $timeout, $backoff_factor);
+        $this->request_client = new \MagicAdmin\RequestsClient($api_secret_key, $timeout);
     }
 
     public function get_metadata_by_issuer($issuer) {

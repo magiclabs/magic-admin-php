@@ -9,3 +9,4 @@ namespace MagicAdmin\Exception;
  */
 
 class DIDTokenException extends MagicException {} 
+

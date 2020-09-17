@@ -48,4 +48,4 @@ class RequestException extends MagicException {
             ', http_code=' . $this->http_code . ')';
     }
 
-} 
+}
