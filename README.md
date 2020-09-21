@@ -41,27 +41,27 @@ If you use Composer, these dependencies should be handled automatically. If you 
 Simple usage for login:
 
 ```php
-  $did_token = \MagicAdmin\Util\parse_authorization_header_value(
-    $authorization
+$did_token = \MagicAdmin\Util\parse_authorization_header_value(
+  $authorization
+);
+
+if ($did_token == null) {
+  throw new \MagicAdmin\Exception\BadRequestException(
+    'Authorization header is missing or header value is invalid'
   );
+}
 
-  if ($did_token == null) {
-    throw new \MagicAdmin\Exception\BadRequestException(
-      'Authorization header is missing or header value is invalid'
-    );
-  }
+$magic = new \MagicAdmin\Magic('YOUR_SECRET_API_KEY');
 
-  $magic = new \MagicAdmin\Magic('YOUR_SECRET_API_KEY');
-  
-  try {
-    $magic->token->validate($did_token);
-    $issuer = $magic->token->get_issuer($did_token);
-    $user_meta = $magic->user->get_metadata_by_issuer($issuer);
-  } catch (Exception $e) {
-    throw new \MagicAdmin\Exception\DIDTokenException(
-      'DID Token is invalid: ' . $e->getMessage()
-    ); 
-  }
+try {
+  $magic->token->validate($did_token);
+  $issuer = $magic->token->get_issuer($did_token);
+  $user_meta = $magic->user->get_metadata_by_issuer($issuer);
+} catch (Exception $e) {
+  throw new \MagicAdmin\Exception\DIDTokenException(
+    'DID Token is invalid: ' . $e->getMessage()
+  ); 
+}
   # Call your appilication logic to load the user.
   /**
   $user_info = $logic->user->load_by($email)
@@ -72,41 +72,41 @@ Simple usage for login:
   
   echo $user_info;
   **/
-```
+  ```
 
 Simple usage for logout:
 
 ```php
-  $did_token = \MagicAdmin\Util\parse_authorization_header_value(
-    $authorization
+$did_token = \MagicAdmin\Util\parse_authorization_header_value(
+  $authorization
+);
+
+if ($did_token == null) {
+  throw new \MagicAdmin\Exception\BadRequestException(
+    'Authorization header is missing or header value is invalid'
   );
+}
 
-  if ($did_token == null) {
-    throw new \MagicAdmin\Exception\BadRequestException(
-      'Authorization header is missing or header value is invalid'
-    );
-  }
+$magic = new \MagicAdmin\Magic('YOUR_SECRET_API_KEY');
 
-  $magic = new \MagicAdmin\Magic('YOUR_SECRET_API_KEY');
-  
-  try {
-    $magic->token->validate($did_token);
-    $issuer = $magic->token->get_issuer($did_token);
-    $user_meta = $magic->user->get_metadata_by_issuer($issuer);
-  } catch (Exception $e) {
-    throw new \MagicAdmin\Exception\DIDTokenException(
-      'DID Token is invalid: ' . $e->getMessage()
-    ); 
-  }
+try {
+  $magic->token->validate($did_token);
+  $issuer = $magic->token->get_issuer($did_token);
+  $user_meta = $magic->user->get_metadata_by_issuer($issuer);
+} catch (Exception $e) {
+  throw new \MagicAdmin\Exception\DIDTokenException(
+    'DID Token is invalid: ' . $e->getMessage()
+  ); 
+}
 
 
-  # Call your appilication logic to load the user.
-  /**
-  $user_info = $logic->user->load_by($email)
-    
-  if ($user_info->issuer != $issuer) {
-    throw new \MagicAdmin\Exception\UnAuthorizedError('UnAuthorized user login');
-  }
-  **/
+# Call your appilication logic to load the user.
+/**
+$user_info = $logic->user->load_by($email)
+
+if ($user_info->issuer != $issuer) {
+  throw new \MagicAdmin\Exception\UnAuthorizedError('UnAuthorized user login');
+}
+**/
 ```
 

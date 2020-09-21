@@ -7,5 +7,4 @@ namespace MagicAdmin\Exception;
  * the SDK has sent too many requests to server in a given amount of time.
  */
 
-class RateLimitException extends RequestException {} 
-
+class RateLimitException extends RequestException {}  

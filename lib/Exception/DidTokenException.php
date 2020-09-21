@@ -8,5 +8,4 @@ namespace MagicAdmin\Exception;
  * signature mismatch between "proof" and "claim".
  */
 
-class DIDTokenException extends MagicException {} 
-
+class DIDTokenException extends MagicException {}  

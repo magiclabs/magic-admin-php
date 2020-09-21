@@ -7,5 +7,4 @@ namespace MagicAdmin\Exception;
  * the API secret key is missing.
  */
 
-class AuthenticationException extends RequestException {} 
-
+class AuthenticationException extends RequestException {}

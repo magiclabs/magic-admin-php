@@ -7,6 +7,4 @@ namespace MagicAdmin\Exception;
  * authorization header is missing or header value is invalid.
  */
 
-class BadRequestException extends RequestException {} 
-
- 
+class BadRequestException extends RequestException {}  
