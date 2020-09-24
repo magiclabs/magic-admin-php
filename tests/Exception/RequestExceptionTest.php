@@ -25,5 +25,4 @@ class RequestExceptionTest extends TestCase {
   public function testGetRepr() {
     $this->assertEquals("RequestException(message=Magic is amazing, http_error_code=MAGIC_IS_GOOD, http_code=200", $this->getRepr());
   } 
-}  
-
+}

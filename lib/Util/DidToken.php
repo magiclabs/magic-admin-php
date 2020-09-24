@@ -29,6 +29,5 @@ class UtilDidToken {
 
   public static function construct_issuer_with_public_address($public_address) {
     return 'did:ethr:' . $public_address;
-  } 
-
+  }
 }

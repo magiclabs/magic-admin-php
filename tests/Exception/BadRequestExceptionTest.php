@@ -8,9 +8,7 @@ class BadRequestExceptionTest extends TestCase {
   public $badRequestException;
 
   public function setUp() {
-    $this->badRequestException = new BadRequestException(
-      "Magic is amazing"
-    );
+    $this->badRequestException = new BadRequestException("Magic is amazing");
   }
 
   public function testGetRepr() {

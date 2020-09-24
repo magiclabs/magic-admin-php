@@ -11,7 +11,7 @@ class RequestsClientTest extends TestCase {
   public function setUp() {
     $timeout = 10;
     $retries = 3;
-    $backoff_factor = 0.2;
+    $backoff_factor = 0.02;
     $api_secret_key = 'magic_admin';
 
     $this->requestsClient = new \MagicAdmin\RequestsClient($api_secret_key, $timeout, $retries, $backoff_factor);
@@ -20,7 +20,7 @@ class RequestsClientTest extends TestCase {
   public function test_retrieves() {
     $timeout = 10;
     $retries = 3;
-    $backoff_factor = 0.2;
+    $backoff_factor = 0.02;
     $api_secret_key = 'magic_admin';
 
     $this->assertEquals($this->requestsClient->_timeout, $timeout);
@@ -87,5 +87,18 @@ class RequestsClientTest extends TestCase {
     $this->assertEquals($result->content, json_decode($resp_content));
     $this->assertEquals($result->status_code, $resp_info['http_code']);
     $this->assertEquals($result->data, $resp_data->data);
+  }
+
+  public function test_check_retry() {
+    // check with retry number
+    $this->assertEquals($this->requestsClient->check_retry(null, 200, 3), false);
+    $this->assertEquals($this->requestsClient->check_retry(null, 200, 1), true);
+    // check with error
+    $this->assertEquals($this->requestsClient->check_retry(CURLE_OPERATION_TIMEOUTED, 200, 1), true);
+    $this->assertEquals($this->requestsClient->check_retry(CURLE_COULDNT_CONNECT, 200, 1), true);
+    // check with http code
+    $this->assertEquals($this->requestsClient->check_retry(null, 409, 1), true);
+    $this->assertEquals($this->requestsClient->check_retry(null, 500, 1), true);
+    $this->assertEquals($this->requestsClient->check_retry(null, 200, 1), false);
   }
 }

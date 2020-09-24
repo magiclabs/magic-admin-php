@@ -11,7 +11,7 @@ class UserTest extends TestCase {
     $api_secret_key = "magic_admin";
     $timeout = 10;
     $retries = 3;
-    $backoff_factor = 1;
+    $backoff_factor = 0.02;
     $this->user = new \MagicAdmin\Resource\User($api_secret_key, $timeout, $retries, $backoff_factor);
   }
 
@@ -29,6 +29,5 @@ class UserTest extends TestCase {
     $meta_data = $this->user->logout_by_issuer($issuer);
     $this->assertEquals($meta_data['data']->issuer, $issuer);
     $this->assertEquals($meta_data['data']->public_address, $public_address);
-  }
-
+  } 
 }

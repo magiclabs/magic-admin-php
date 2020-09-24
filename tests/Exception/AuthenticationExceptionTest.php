@@ -8,9 +8,7 @@ class AuthenticationExceptionTest extends TestCase {
   public $authenticationException;
 
   public function setUp() {
-    $this->authenticationException = new AuthenticationException(
-      "Magic is amazing"
-    );
+    $this->authenticationException = new AuthenticationException("Magic is amazing");
   }
 
   public function testGetRepr() {

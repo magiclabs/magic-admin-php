@@ -8,9 +8,7 @@ class ForbiddenExceptionTest extends TestCase {
   public $forbiddenException;
 
   public function setUp() {
-    $this->forbiddenException = new ForbiddenException(
-      "Magic is amazing"
-    );
+    $this->forbiddenException = new ForbiddenException("Magic is amazing");
   }
 
   public function testGetRepr() {

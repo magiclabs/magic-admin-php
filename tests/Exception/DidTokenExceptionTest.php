@@ -8,9 +8,7 @@ class DIDTokenExceptionTest extends TestCase {
   public $dIDTokenException;
 
   public function setUp() {
-    $this->dIDTokenException = new DIDTokenException(
-      "Magic is amazing"
-    );
+    $this->dIDTokenException = new DIDTokenException("Magic is amazing");
   }
 
   public function testGetRepr() {
