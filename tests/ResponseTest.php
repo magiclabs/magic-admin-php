@@ -1,9 +1,9 @@
 <?php
 
-use MagicAdmin;
+//use MagicAdmin;
 use PHPUnit\Framework\TestCase;
 
-class MagicResponseTest() {
+class MagicResponseTest extends TestCase {
 
   public $magicResponse;
   public $content = "magic link";
@@ -11,7 +11,7 @@ class MagicResponseTest() {
   public $status_code = 200;
 
   public function setUp() {    
-    $this->magicResponse = new \MagicAdmin\MagicResponse($this->$content, $this->$resp_data, $this->$status_code);
+    $this->magicResponse = new \MagicAdmin\MagicResponse($this->content, $this->resp_data, $this->status_code);
   }
 
   public function test_retrieves_content() { 
@@ -19,7 +19,7 @@ class MagicResponseTest() {
   }
 
   public function test_retrieves_resp_data() { 
-    $this->assertEquals($this->magicResponse->resp_data, $this->resp_data);
+    $this->assertEquals($this->magicResponse->data, $this->resp_data);
   }
 
   public function test_retrieves_status_code() { 
