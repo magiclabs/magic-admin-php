@@ -21,10 +21,8 @@ class Magic {
     $retries = RETRIES,
     $backoff_factor = BACKOFF_FACTOR
   ) {
-
     $this->api_secret_key = $api_secret_key;
     $this->token = new \MagicAdmin\Resource\Token();
     $this->user = new \MagicAdmin\Resource\User($this->api_secret_key, $timeout, $retries, $backoff_factor);
-    
   } 
 }
