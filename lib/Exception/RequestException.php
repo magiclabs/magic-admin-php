@@ -7,17 +7,16 @@ namespace MagicAdmin\Exception;
  * the SDK sends invalid request to servers
  */
 
-class RequestException extends \Exception {
+class RequestException extends MagicException {
 
-  private $_message;
-  private $http_status;
-  private $http_code;
-  private $http_resp_data;
-  private $http_message;
-  private $http_error_code;
-  private $http_request_params;
-  private $http_request_data;
-  private $http_method;
+  public $http_status;
+  public $http_code;
+  public $http_resp_data;
+  public $http_message;
+  public $http_error_code;
+  public $http_request_params;
+  public $http_request_data;
+  public $http_method;
 
   public function __construct(
     $message=null,
@@ -30,7 +29,7 @@ class RequestException extends \Exception {
     $http_request_data=null,
     $http_method=null
   ) {
-    $this->_message = $message;
+    parent::__construct($message);
     $this->http_status = $http_status;
     $this->http_code = $http_code;
     $this->http_resp_data = $http_resp_data;
@@ -47,4 +46,4 @@ class RequestException extends \Exception {
     ', http_error_code=' . $this->http_error_code . 
     ', http_code=' . $this->http_code . ')';
   } 
-}  
+} 

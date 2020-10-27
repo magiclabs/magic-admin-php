@@ -1,6 +1,4 @@
-<?php 
-
-require(__dir__ . '/vendor/autoload.php');
+<?php  
 
 // Define package root path
 if (!defined('MAGIC_ADMIN_PHP_PATH')) {

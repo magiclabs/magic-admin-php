@@ -37,7 +37,6 @@ class RequestsClient {
 
     $this->ch = curl_init();
     curl_setopt($this->ch, CURLOPT_RETURNTRANSFER,   true                          );
-    // curl_setopt($this->ch, CURLOPT_USERAGENT,        $_SERVER['HTTP_USER_AGENT']   );
     curl_setopt($this->ch, CURLOPT_FORBID_REUSE,     true                          );
     curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION,   true                          );  
     curl_setopt($this->ch, CURLOPT_MAXREDIRS,        10                            );
@@ -235,11 +234,11 @@ class RequestsClient {
     } else if ($status_code == 403) {
       throw new \MagicAdmin\Exception\ForbiddenException(
         '',
-        $resp_data['status'],
+        $resp_data,
         $status_code,
-        $resp_data['data'],
-        $resp_data['message'],
-        $resp_data['error_code'],
+        $resp_data,
+        $resp_data,
+        $resp_data,
         $request_params,
         $request_data,
         $method

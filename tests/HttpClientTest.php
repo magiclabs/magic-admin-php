@@ -150,4 +150,14 @@ class RequestsClientTest extends TestCase {
     $result = $test_request_client->request($method, $url, $params);
     $this->assertEquals($result->data->issuer, 'did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4');
   }
+
+  public function test_post_api_exception_request() {
+    $method = "post";
+    $url = "/v2/admin/auth/user/path";
+    $params = "params";
+    $data = "data";    
+
+    $this->expectException( MagicAdmin\Exception\ApiException::class);
+    $result = $this->requestsClient->request($method, $url, $params, $data);
+  }
 }
