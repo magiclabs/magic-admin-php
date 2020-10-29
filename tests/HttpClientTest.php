@@ -66,15 +66,15 @@ class RequestsClientTest extends TestCase {
 
   public function test_parse_and_convert_to_api_response() {
     $resp_content = json_encode(array('data' => "magic_admin"));
-    $resp_info = array('http_code'=> 200);
+    $status_code = 200;
     $method = "post";
     $request_params = "magic request_params";
     $request_data = "magic rquest_data";
 
-    $result = $this->requestsClient->_parse_and_convert_to_api_response($resp_content, $resp_info, $method, $request_params, $request_data);
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($resp_content, $status_code, $method, $request_params, $request_data);
 
     $this->assertEquals($result->content, json_decode($resp_content));
-    $this->assertEquals($result->status_code, $resp_info['http_code']);
+    $this->assertEquals($result->status_code, $status_code);
     $this->assertEquals($result->data, json_decode($resp_content)->data);
   }
 
@@ -90,74 +90,187 @@ class RequestsClientTest extends TestCase {
     $this->assertEquals($this->requestsClient->check_retry(null, 200, 1), false);
   }
 
+  public function test_post_not_found_request() {    
+    $method = "post";
+    $url = "/v2/admin/auth/user/path";
+    $params = "params";
+    $data = "data";
+
+    $mock = $this->createMock(\MagicAdmin\RequestsClient::class);
+    $mock->method('api_request')
+         ->with($method, $url, $params, $data)
+         ->willReturn(
+            array(
+              '{"data":{},"error_code":"NOT_FOUND","message":"The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.","status":"failed"}',
+              404
+            )
+          );
+
+    list($content, $status_code) = $mock->api_request($method, $url, $params, $data);
+
+    $this->expectException( MagicAdmin\Exception\ApiException::class);
+
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($content, $status_code, $method, $params, $data);
+  }
+
   public function test_post_forbidden_request() {
     $method = "post";
     $url = "/path";
     $params = "params";
-    $data = "data";    
+    $data = "data";
+
+    $mock = $this->createMock(\MagicAdmin\RequestsClient::class);
+    $mock->method('api_request')
+         ->with($method, $url, $params, $data)
+         ->willReturn(
+            array(
+              "<html><head><title>403 Forbidden</title></head><body><center><h1>403 Forbidden</h1></center></body></html>",
+              403
+            )
+          );
+
+    list($content, $status_code) = $mock->api_request($method, $url, $params, $data);
 
     $this->expectException( MagicAdmin\Exception\ForbiddenException::class);
-    $result = $this->requestsClient->request($method, $url, $params, $data);
+
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($content, $status_code, $method, $params, $data); 
   }
 
-  public function test_post_request() {
+  public function test_post_unauthorized_request() {
     $method = "post";
     $url = "/v2/admin/auth/user/logout";
-
     $params = null;
     $data = array('issuer'=> 'did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4');
 
-    $this->expectException( MagicAdmin\Exception\BadRequestException::class);
-    $result = $this->requestsClient->request($method, $url, $params, $data);
+    $mock = $this->createMock(\MagicAdmin\RequestsClient::class);
+    $mock->method('api_request')
+         ->with($method, $url, $params, $data)
+         ->willReturn(
+            array(
+              '{"data":{},"error_code":"UNAUTHORIZED","message":"Please try again.","status":"failed"}',
+              401
+            )
+          );
+
+    list($content, $status_code) = $mock->api_request($method, $url, $params, $data);
+
+    $this->expectException( MagicAdmin\Exception\AuthenticationException::class);
+
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($content, $status_code, $method, $params, $data); 
   }
 
-  public function test_get_key_bad_request() {
+  public function test_post_too_many_request() {
+    $method = "post";
+    $url = "/v2/admin/auth/user/logout";
+    $params = null;
+    $data = array('issuer'=> 'did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4');
+
+    $mock = $this->createMock(\MagicAdmin\RequestsClient::class);
+    $mock->method('api_request')
+         ->with($method, $url, $params, $data)
+         ->willReturn(
+            array(
+              '{"data":{},"error_code":"TOO_MANY_REQUEST","message":"Please try again.","status":"failed"}',
+              429
+            )
+          );
+
+    list($content, $status_code) = $mock->api_request($method, $url, $params, $data);
+
+    $this->expectException( MagicAdmin\Exception\RateLimitException::class);
+
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($content, $status_code, $method, $params, $data); 
+  }
+
+  public function test_post_invalid_key_request() {
+    $method = "post";
+    $url = "/v2/admin/auth/user/logout";
+    $params = null;
+    $data = array('issuer'=> 'did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4');
+
+    $mock = $this->createMock(\MagicAdmin\RequestsClient::class);
+    $mock->method('api_request')
+         ->with($method, $url, $params, $data)
+         ->willReturn(
+            array(
+              '{"data":{},"error_code":"INVALID_API_KEY","message":"Given API key is invalid. Please try again.","status":"failed"}',
+              400
+            )
+          );
+
+    list($content, $status_code) = $mock->api_request($method, $url, $params, $data);
+
+    $this->expectException( MagicAdmin\Exception\BadRequestException::class);
+
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($content, $status_code, $method, $params, $data);
+  }
+
+  public function test_get_invalid_key_request() {
     $method = "get";
     $url = "/v1/admin/auth/user/get";
     $params = array('issuer'=> 'did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4');
 
+    $mock = $this->createMock(\MagicAdmin\RequestsClient::class);
+    $mock->method('api_request')
+         ->with($method, $url, $params)
+         ->willReturn(
+            array(
+              '{"data":{},"error_code":"INVALID_API_KEY","message":"Given API key is invalid. Please try again.","status":"failed"}',
+              400
+            )
+          );
+
+    list($content, $status_code) = $mock->api_request($method, $url, $params);
+
     $this->expectException( MagicAdmin\Exception\BadRequestException::class);
-    $result = $this->requestsClient->request($method, $url, $params);
+
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($content, $status_code, $method, $params, null);
   }
 
-  public function test_get_issuer_bad_request() {
-    $timeout = 10;
-    $retries = 3;
-    $backoff_factor = 0.02;
-    $api_secret_key = 'sk_test_6F832D5FB8382105';
-
-    $test_request_client = new \MagicAdmin\RequestsClient($api_secret_key, $timeout, $retries, $backoff_factor);
-
+  public function test_get_malformed_issuer_request() {
     $method = "get";
     $url = "/v1/admin/auth/user/get";
     $params = array('issuer'=> 'magic_admin');
 
+    $mock = $this->createMock(\MagicAdmin\RequestsClient::class);
+    $mock->method('api_request')
+         ->with($method, $url, $params)
+         ->willReturn(
+            array(
+              '{"data":{},"error_code":"MALFORMED_DID_ISSUER","message":"Given id (magic_admin) is malformed.","status":"failed"}',
+              400
+            )
+          );
+
+    list($content, $status_code) = $mock->api_request($method, $url, $params);
+
     $this->expectException( MagicAdmin\Exception\BadRequestException::class);
-    $result = $test_request_client->request($method, $url, $params);
+
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($content, $status_code, $method, $params, null);
   }
 
   public function test_get_good_request() {
-    $timeout = 10;
-    $retries = 3;
-    $backoff_factor = 0.02;
-    $api_secret_key = 'sk_test_6F832D5FB8382105';
-
-    $test_request_client = new \MagicAdmin\RequestsClient($api_secret_key, $timeout, $retries, $backoff_factor);
-
     $method = "get";
     $url = "/v1/admin/auth/user/get";
     $params = array('issuer'=> 'did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4');
-    $result = $test_request_client->request($method, $url, $params);
+
+    $mock = $this->createMock(\MagicAdmin\RequestsClient::class);
+    $mock->method('api_request')
+         ->with($method, $url, $params)
+         ->willReturn(
+            array(
+              '{"data":{"email":"test@user.com","issuer":"did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4","public_address":"0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4"},"error_code":"","message":"","status":"ok"}',
+              200
+            )
+          );
+
+    list($content, $status_code) = $mock->api_request($method, $url, $params);
+
+    $result = $this->requestsClient->_parse_and_convert_to_api_response($content, $status_code, $method, $params, null);
+
     $this->assertEquals($result->data->issuer, 'did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4');
-  }
-
-  public function test_post_api_exception_request() {
-    $method = "post";
-    $url = "/v2/admin/auth/user/path";
-    $params = "params";
-    $data = "data";    
-
-    $this->expectException( MagicAdmin\Exception\ApiException::class);
-    $result = $this->requestsClient->request($method, $url, $params, $data);
+    $this->assertEquals($result->content->error_code, '');
+    $this->assertEquals($result->content->message, '');
+    $this->assertEquals($result->content->status, 'ok');
   }
 }
