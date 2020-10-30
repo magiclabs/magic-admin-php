@@ -28,7 +28,7 @@ require( __dir__ . '/lib/Exception/MagicException.php' );
 require( __dir__ . '/lib/Exception/DidTokenException.php' );
 require( __dir__ . '/lib/Exception/ApiConnectionException.php' );
 require( __dir__ . '/lib/Exception/RequestException.php' );
-require( __dir__ . '/lib/Exception/RateLimitException.php' );
+require( __dir__ . '/lib/Exception/RateLimitingException.php' );
 require( __dir__ . '/lib/Exception/BadRequestException.php' );
 require( __dir__ . '/lib/Exception/AuthenticationException.php' );
 require( __dir__ . '/lib/Exception/ForbiddenException.php' );

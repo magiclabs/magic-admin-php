@@ -65,8 +65,8 @@ class RequestsClient {
     $user_agent = array();
     $user_agent[] = 'language: php';
     $user_agent[] = 'sdk_version: ' . $this->get_version();
-    $user_agent[] = 'publisher: magic';
-    $user_agent[] = 'http_lib: Magic';
+    $user_agent[] = 'publisher: Magic Labs Inc.';
+    $user_agent[] = 'http_lib: magic-admin-php';
     return $user_agent;
   }
 
@@ -195,7 +195,7 @@ class RequestsClient {
     }
 
     if ($status_code == 429){
-      throw new \MagicAdmin\Exception\RateLimitException(
+      throw new \MagicAdmin\Exception\RateLimitingException(
         '',
         $resp_data->status,
         $status_code,

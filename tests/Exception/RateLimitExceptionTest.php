@@ -3,15 +3,15 @@
 use MagicAdmin\Exception;
 use PHPUnit\Framework\TestCase;
 
-class RateLimitExceptionTest extends TestCase {
+class RateLimitingExceptionTest extends TestCase {
 
   public $rateLimitException;
 
   public function setUp() {
-    $this->rateLimitException = new RateLimitException("Magic is amazing");
+    $this->rateLimitException = new RateLimitingException("Magic is amazing");
   }
 
   public function testGetRepr() {
-    $this->assertEquals("RateLimitException(message=Magic is amazing", $this->rateLimitException->getRepr());
+    $this->assertEquals("RateLimitingException(message=Magic is amazing", $this->rateLimitException->getRepr());
   } 
 }
