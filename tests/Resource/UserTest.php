@@ -10,7 +10,7 @@ class UserTest extends TestCase {
   private $public_address;
 
   public function setUp() {
-    $api_secret_key = "sk_test_6F832D5FB8382105";
+    $api_secret_key = "magic_admin";
     $timeout = 10;
     $retries = 3;
     $backoff_factor = 0.02;
