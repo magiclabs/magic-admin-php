@@ -8,10 +8,9 @@ class RequestExceptionTest extends TestCase {
   public $requestException;
 
   public function setUp() {
-    $this->requestException = new RequestException(
+    $this->requestException = new MagicAdmin\Exception\RequestException(
       "Magic is amazing",
-      "Magic is good",
-      "success",
+      "Magic is good", 
       200,
       array("magic" => "link"),
       "Magic is good",
@@ -23,6 +22,6 @@ class RequestExceptionTest extends TestCase {
   }
 
   public function testGetRepr() {
-    $this->assertEquals("RequestException(message=Magic is amazing, http_error_code=MAGIC_IS_GOOD, http_code=200", $this->getRepr());
+    $this->assertEquals("MagicAdmin\Exception\RequestException(message=Magic is amazing, http_error_code=MAGIC_IS_GOOD, http_code=200)", $this->requestException->getRepr());
   } 
 }

@@ -29,7 +29,7 @@ class Token {
 
     if (count($missing_fields) > 0) {
       throw new \MagicAdmin\Exception\DIDTokenException( 
-        'DID token is missing required field(s):' . $missing_fields
+        'DID token is missing required field(s):' . json_encode($missing_fields)
       );
     } else {
       return null;
