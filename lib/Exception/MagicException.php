@@ -20,6 +20,6 @@ class MagicException extends \Exception  {
   }
 
   public function getRepr() {
-    return __class__ . '(message=' . $this->_message . ')';
+    return get_class($this) . '(message=' . $this->_message . ')';
   }
 }

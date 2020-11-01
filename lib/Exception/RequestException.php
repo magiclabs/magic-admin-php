@@ -41,9 +41,9 @@ class RequestException extends MagicException {
   }
 
   public function getRepr() {
-    return __class__ . 
+    return get_class($this) . 
     '(message=' . $this->_message .
     ', http_error_code=' . $this->http_error_code . 
     ', http_code=' . $this->http_code . ')';
   } 
-}  
+} 

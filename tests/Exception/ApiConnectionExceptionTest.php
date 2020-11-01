@@ -8,10 +8,10 @@ class ApiConnectionExceptionTest extends TestCase {
   public $apiConnectionException;
 
   public function setUp() {
-    $this->apiConnectionException = new ApiConnectionException("Magic is amazing");
+    $this->apiConnectionException = new MagicAdmin\Exception\ApiConnectionException("Magic is amazing");
   }
 
   public function testGetRepr() {
-    $this->assertEquals("ApiConnectionException(message=Magic is amazing", $this->apiConnectionException->getRepr());
+    $this->assertEquals("MagicAdmin\Exception\ApiConnectionException(message=Magic is amazing)", $this->apiConnectionException->getRepr());
   } 
 }

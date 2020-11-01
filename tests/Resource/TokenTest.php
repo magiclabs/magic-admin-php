@@ -1,7 +1,7 @@
 <?php
 
-use MagicAdmin\Resource
-use MigicAdmin\Exception
+use MagicAdmin\Resource;
+use MigicAdmin\Exception;
 use PHPUnit\Framework\TestCase;
 
 class TokenTest extends TestCase {
@@ -38,7 +38,7 @@ class TokenTest extends TestCase {
     try {
       $this->token->_check_required_fields($claim);
     } catch (\MagicAdmin\Exception\DIDTokenException $e) {
-      $this->assertEquals($e->message, 'DID token is missing required field(s):[\'nbf\', \'tid\']');
+      $this->assertEquals($e->getErrorMessage(), 'DID token is missing required field(s):["nbf","tid"]');
     }
   }
 } 
@@ -74,8 +74,7 @@ class TokenDecodeTest extends TestCase {
     try {
       $this->token->decode($did_token);
     } catch ( \MagicAdmin\Exception\DIDTokenException $e ) {
-      $this->assertEquals($e->message, 'DID token is malformed. Given claim should be ' \
-            'a JSON serialized string. DIDTokenException(<empty message>).');
+      $this->assertEquals($e->message, 'DID token is malformed. Given claim should be a JSON serialized string. DIDTokenException(<empty message>).');
     }
   }
 }

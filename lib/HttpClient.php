@@ -37,7 +37,6 @@ class RequestsClient {
 
     $this->ch = curl_init();
     curl_setopt($this->ch, CURLOPT_RETURNTRANSFER,   true                          );
-    curl_setopt($this->ch, CURLOPT_USERAGENT,        $_SERVER['HTTP_USER_AGENT']   );
     curl_setopt($this->ch, CURLOPT_FORBID_REUSE,     true                          );
     curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION,   true                          );  
     curl_setopt($this->ch, CURLOPT_MAXREDIRS,        10                            );
@@ -71,6 +70,19 @@ class RequestsClient {
   }
 
   public function request($method, $url, $params=null, $data=null) {
+    
+    list($content, $status_code) = $this->api_request($method, $url, $params, $data);
+
+    return $this->_parse_and_convert_to_api_response(
+      $content,
+      $status_code,
+      $method,
+      $params,
+      $data
+    );
+  }
+
+  public function api_request($method, $url, $params=null, $data=null) {
     try {
       if ($method == 'get') {
         $send_params = '';
@@ -90,6 +102,7 @@ class RequestsClient {
         while(true) {
           $rcode = 0;
           $errno = 0;
+          $info = null;
 
           $content = curl_exec($this->ch);
 
@@ -103,7 +116,7 @@ class RequestsClient {
           $should_retry = $this->check_retry($errno, $rcode, $retries_number);
           if ($should_retry) {
             $retries_number++;
-            usleep((int) ($this->backoff_factor * 1000000));
+            usleep((int) ($this->_backoff_factor * 1000000));
           } else {
             break;
           }
@@ -123,6 +136,7 @@ class RequestsClient {
 
           $rcode = 0;
           $errno = 0;
+          $info = null;
 
           $content = curl_exec($this->ch);
 
@@ -136,7 +150,7 @@ class RequestsClient {
           $should_retry = $this->check_retry($errno, $rcode, $retries_number);
           if ($should_retry) {
             $retries_number++;
-            usleep((int) ($this->backoff_factor * 1000000));
+            usleep((int) ($this->_backoff_factor * 1000000));
           } else {
             break;
           }
@@ -152,13 +166,7 @@ class RequestsClient {
       );
     }
 
-    return $this->_parse_and_convert_to_api_response(
-      $content,
-      $info,
-      $method,
-      $params,
-      $data
-    );
+    return array($content, $rcode);
   }
 
   public function check_retry($errno, $rcode, $retries_number) {
@@ -184,9 +192,8 @@ class RequestsClient {
     return false;
   }
 
-  public function _parse_and_convert_to_api_response($resp_content, $resp_info, $method, $request_params, $request_data) {
-    $status_code = $resp_info['http_code'];
-
+  public function _parse_and_convert_to_api_response($resp_content, $status_code, $method, $request_params, $request_data) { 
+    
     $resp_data = json_decode($resp_content);
 
     if ( $status_code >= 200 && $status_code < 300 ) {
@@ -233,11 +240,11 @@ class RequestsClient {
     } else if ($status_code == 403) {
       throw new \MagicAdmin\Exception\ForbiddenException(
         '',
-        $resp_data->status,
+        $resp_data,
         $status_code,
-        $resp_data->data,
-        $resp_data->message,
-        $resp_data->error_code,
+        $resp_data,
+        $resp_data,
+        $resp_data,
         $request_params,
         $request_data,
         $method
@@ -245,15 +252,15 @@ class RequestsClient {
     } else {
       throw new \MagicAdmin\Exception\ApiException(
         '',
-        $resp_data->status,
+        array_key_exists("status" , $resp_data )? $resp_data->status : null,
         $status_code,
-        $resp_data->data,
-        $resp_data->message,
-        $resp_data->error_code,
+        array_key_exists("data" , $resp_data )? $resp_data->data : null,
+        array_key_exists("message" , $resp_data )? $resp_data->message : null,
+        array_key_exists("error_code" , $resp_data )? $resp_data->error_code : null,
         $request_params,
         $request_data,
         $method
-      );
+      );      
     } 
   }
 
