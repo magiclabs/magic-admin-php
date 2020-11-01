@@ -22,7 +22,7 @@ class DidToken
         try {
             $issuer_split = \explode(':', $issuer);
 
-            return \strtolower($issuer_split[2]);
+            return $issuer_split[2];
         } catch (Exception $e) {
             throw new DIDTokenException(
                 'Given issuer (' . $issuer . ') is malformed. Please make sure it follows the ' .

@@ -86,7 +86,7 @@ class Token
 
         $recovered_address = EcRecover::personalEcRecover(\json_encode($claim), $proof);
 
-        if ($recovered_address !== $this->get_public_address($did_token)) {
+        if ($recovered_address !== \strtolower($this->get_public_address($did_token))) {
             throw new \MagicAdmin\Exception\DIDTokenException(
                 'Signature mismatch between "proof" and "claim". Please generate a new token with an intended issuer.'
             );

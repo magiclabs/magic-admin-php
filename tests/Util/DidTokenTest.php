@@ -19,7 +19,7 @@ final class DidTokenTest extends TestCase
 
     public function testParsePublicAddressFromIssuer()
     {
-        static::assertSame(\strtolower($this->public_address), \MagicAdmin\Util\DidToken::parse_public_address_from_issuer($this->issuer));
+        static::assertSame($this->public_address, \MagicAdmin\Util\DidToken::parse_public_address_from_issuer($this->issuer));
     }
 
     public function testConstructIssuerWithPublicAddress()
