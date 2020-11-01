@@ -1,27 +1,32 @@
 <?php
 
-use MagicAdmin\Exception;
 use PHPUnit\Framework\TestCase;
 
-class BadRequestExceptionTest extends TestCase {
+/**
+ * @internal
+ * @coversNothing
+ */
+final class BadRequestExceptionTest extends TestCase
+{
+    public $badRequestException;
 
-  public $badRequestException;
+    protected function setUp()
+    {
+        $this->badRequestException = new MagicAdmin\Exception\BadRequestException(
+            'Magic is amazing',
+            'Magic is good',
+            400,
+            ['magic' => 'link'],
+            'Magic is good',
+            'MAGIC_IS_GOOD',
+            'a=b&b=c',
+            ['magic' => 'link'],
+            'post'
+        );
+    }
 
-  public function setUp() {
-    $this->badRequestException = new MagicAdmin\Exception\BadRequestException(
-      "Magic is amazing",
-      "Magic is good", 
-      200,
-      array("magic" => "link"),
-      "Magic is good",
-      "MAGIC_IS_GOOD",
-      "a=b&b=c",
-      array("magic" => "link"),
-      "post"
-    );
-  }
-
-  public function testGetRepr() {
-    $this->assertEquals("MagicAdmin\Exception\BadRequestException(message=Magic is amazing, http_error_code=MAGIC_IS_GOOD, http_code=200)", $this->badRequestException->getRepr());
-  } 
+    public function testGetRepr()
+    {
+        static::assertSame('MagicAdmin\\Exception\\BadRequestException(message=Magic is amazing, http_error_code=MAGIC_IS_GOOD, http_code=400)', $this->badRequestException->getRepr());
+    }
 }

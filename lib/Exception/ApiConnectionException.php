@@ -1,10 +1,11 @@
 <?php
 
-namespace MagicAdmin\Exception; 
+namespace MagicAdmin\Exception;
 
 /**
- * ApiConnectionException is thrown in the event that 
+ * ApiConnectionException is thrown in the event that
  * the SDK can't connect to Magic's servers.
  */
-
-class ApiConnectionException extends RequestException {}
+class ApiConnectionException extends RequestException
+{
+}
