@@ -3,8 +3,12 @@
   "description": "Magic Admin PHP Library",
   "keywords": [
     "magic",
+    "link",
     "admin",
-    "link"
+    "authentication",
+    "passwordless",
+    "oauth2",
+    "webauthen"
   ],
   "homepage": "https://magic.link",
   "license": "MIT",
@@ -25,7 +29,7 @@
   },
   "autoload": {
     "psr-4": {
-      "MagicAdmin\\": "/"
+      "MagicAdmin\\": "lib/"
     }
   }
 }
