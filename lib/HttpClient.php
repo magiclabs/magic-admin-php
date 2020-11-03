@@ -2,7 +2,7 @@
 
 namespace MagicAdmin;
 
-\define('MAGIC_ADMIN_PHP_PATH', dirname(__dir__, 1));
+\define('MAGIC_ADMIN_PHP_PATH', \dirname(__DIR__, 1));
 
 \define('API_MAGIC_BASE_URL', 'https://api.magic.link');
 
