@@ -1,10 +1,5 @@
 <?php
 
-// Define package root path
-if (!\defined('MAGIC_ADMIN_PHP_PATH')) {
-    \define('MAGIC_ADMIN_PHP_PATH', __DIR__);
-}
-
 // Magic
 require __DIR__ . '/lib/Magic.php';
 
