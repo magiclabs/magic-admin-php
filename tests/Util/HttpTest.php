@@ -1,15 +1,19 @@
 <?php
 
-use MagicAdmin\Util;
 use PHPUnit\Framework\TestCase;
 
-class UtilHttpTest extends TestCase {
+/**
+ * @internal
+ * @coversNothing
+ */
+final class HttpTest extends TestCase
+{
+    public function testParseAuthorizationHeaderValue()
+    {
+        $expected = 'Bearer magic_admin';
+        $malformed = 'wrong_format';
+        static::assertSame('magic_admin', \MagicAdmin\Util\Http::parse_authorization_header_value($expected));
 
-  public function test_parse_authorization_header_value() {
-    $expected = 'Bearer magic_admin';
-    $malformed = 'wrong_format';
-    $this->assertEquals("magic_admin", \MagicAdmin\Util\UtilHttp::parse_authorization_header_value($expected));
-
-    $this->assertEquals(null, \MagicAdmin\Util\UtilHttp::parse_authorization_header_value($malformed));
-  } 
+        static::assertNull(\MagicAdmin\Util\Http::parse_authorization_header_value($malformed));
+    }
 }
