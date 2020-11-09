@@ -23,7 +23,7 @@ class Token
     {
         $missing_fields = [];
         foreach ($this->required_fields as $field) {
-            if (!\array_key_exists($field, $claim)) {
+            if (!\property_exists($claim, $field)) {
                 \array_push($missing_fields, $field);
             }
         }
