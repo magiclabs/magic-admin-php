@@ -2,8 +2,8 @@
 
 namespace MagicAdmin\Resource;
 
-use Ethereum\EcRecover;
 use MagicAdmin\Exception;
+use MagicAdmin\Util\Eth;
 
 \define('EXPECTED_DID_TOKEN_CONTENT_LENGTH', 2);
 
@@ -84,7 +84,7 @@ class Token
     {
         list($proof, $claim) = $this->decode($did_token);
 
-        $recovered_address = EcRecover::personalEcRecover(\json_encode($claim), $proof);
+        $recovered_address = Eth::ecRecover(\json_encode($claim), $proof);
 
         if ($recovered_address !== \strtolower($this->get_public_address($did_token))) {
             throw new \MagicAdmin\Exception\DIDTokenException(
