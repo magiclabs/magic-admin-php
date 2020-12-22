@@ -43,7 +43,7 @@ require_once('/path/to/magic-admin-php/init.php');
 The bindings require the following extensions in order to work properly. If you use Composer, these dependencies should be handled automatically. If you install manually, you'll want to make sure that these extensions are available.
 
 -   [`curl`](https://secure.php.net/manual/en/book.curl.php)
--   [`gmp`](https://www.php.net/manual/en/book.gmp.php) | or `bcmath` (see below)
+-   [`gmp`](https://www.php.net/manual/en/book.gmp.php) | or [`bcmath`](https://www.php.net/manual/en/book.bc.php) (see below)
 
 For optimal performance ensure that your platform has the `gmp` extension installed. If your platform does not support `gmp` then `bcmath` may be used as an alternative, but note that `bcmath` is significantly slower than `gmp`.
 
