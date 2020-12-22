@@ -40,12 +40,14 @@ require_once('/path/to/magic-admin-php/init.php');
 
 ### Dependencies
 
-The bindings require the following extensions in order to work properly:
+The bindings require the following extensions in order to work properly. If you use Composer, these dependencies should be handled automatically. If you install manually, you'll want to make sure that these extensions are available.
 
 -   [`curl`](https://secure.php.net/manual/en/book.curl.php)
--   [`gmp`](https://www.php.net/manual/en/book.gmp.php)
+-   [`gmp`](https://www.php.net/manual/en/book.gmp.php) | or `bcmath` (see below)
 
-If you use Composer, these dependencies should be handled automatically. If you install manually, you'll want to make sure that these extensions are available.
+For optimal performance ensure that your platform has the `gmp` extension installed. If your platform does not support `gmp` then `bcmath` may be used as an alternative, but note that `bcmath` is significantly slower than `gmp`.
+
+Since `gmp` is a required dependency you may need to use the `--ignore-platform-reqs` flag when runnining `composer install` on a platform without the `gmp` extension.
 
 ### Prerequisites
 
@@ -68,7 +70,7 @@ Simple usage for login:
   }
 
   $magic = new \MagicAdmin\Magic('<YOUR_API_SECRET_KEY>');
-  
+
   try {
     $magic->token->validate($did_token);
     $issuer = $magic->token->get_issuer($did_token);
