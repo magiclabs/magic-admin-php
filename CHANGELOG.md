@@ -12,6 +12,12 @@
 
 - <PR-#ISSUE> ...
 
+## `0.1.2` - 12/22/2020
+
+#### Changed
+
+- PR-#8: Add support for runtimes without gmp
+
 ## `0.1.1` - 11/30/2020
 
 #### Changed
