@@ -94,3 +94,60 @@ final class TokenDecodeTest extends TestCase
         }
     }
 }
+
+/**
+ * @internal
+ * @coversNothing
+ */
+final class TokenValidateTest extends TestCase
+{
+    public $token;
+
+    protected function setUp()
+    {
+        $this->token = new \MagicAdmin\Resource\Token();
+    }
+
+    /**
+     *  @doesNotPerformAssertions
+     */
+    public function testValidate()
+    {
+        $valid_did_token = 'WyIweGUwMjQzNTVlNDI5ZGNhZDM1MTdhZDk5ZWEzNDEwYWJmZDQ1YjBiNjM5OGIwNjY1NGRiYTQxNzljODdlMTYyNzgxNTc1YjA5ODFjNjU4ZjcwMjYwZTQ5MjMwZGE5NDg4YTA0ZDk5NzBlYjM4ZTZmZGRlY2Q2NTA5YTAyN2IwOGI5MWIiLCJ7XCJpYXRcIjoxNTg1MDExMjA0LFwiZXh0XCI6MTkwMDQxMTIwNCxcImlzc1wiOlwiZGlkOmV0aHI6MHhCMmVjOWI2MTY5OTc2MjQ5MWI2NTQyMjc4RTlkRkVDOTA1MGY4MDg5XCIsXCJzdWJcIjpcIjZ0RlhUZlJ4eWt3TUtPT2pTTWJkUHJFTXJwVWwzbTNqOERReWNGcU8ydHc9XCIsXCJhdWRcIjpcImRpZDptYWdpYzpmNTQxNjhlOS05Y2U5LTQ3ZjItODFjOC03Y2IyYTk2YjI2YmFcIixcIm5iZlwiOjE1ODUwMTEyMDQsXCJ0aWRcIjpcIjJkZGY1OTgzLTk4M2ItNDg3ZC1iNDY0LWJjNWUyODNhMDNjNVwiLFwiYWRkXCI6XCIweDkxZmJlNzRiZTZjNmJmZDhkZGRkZDkzMDExYjA1OWI5MjUzZjEwNzg1NjQ5NzM4YmEyMTdlNTFlMGUzZGYxMzgxZDIwZjUyMWEzNjQxZjIzZWI5OWNjYjM0ZTNiYzVkOTYzMzJmZGViYzhlZmE1MGNkYjQxNWU0NTUwMDk1MmNkMWNcIn0iXQ==';
+
+        $this->token->validate($valid_did_token);
+    }
+
+    public function testValidateRaisesErrorIfDidTokenHasInvalidSigner()
+    {
+        $invalid_signer_did_token = 'WyIweDBhNTk4NmE1NDdiMzNhMDAxODIxNmRiNjk0YzNiMDg3YTU3MTk1Nzg4ZTZmMDc2NDg4NzA2ZTQ3ZmFhNjFhYzMzZDczZTM4ZmM5ZDA0YzU2YWVmZWNiMTAxMDA4OGEwNmFlOWFiZTE5ZDIyYWQ4MzNiMDhhM2VlNWNmZWM5ZDQ0MWMiLCJ7XCJpYXRcIjoxNTg1MDEwODIxLFwiZXh0XCI6MTkwMDQxMDgyMSxcImlzc1wiOlwiXFxcImRpZDpldGhyOjB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMFxcXCJcIixcInN1YlwiOlwiNnRGWFRmUnh5a3dNS09PalNNYmRQckVNcnBVbDNtM2o4RFF5Y0ZxTzJ0dz1cIixcImF1ZFwiOlwiZGlkOm1hZ2ljOjMzZjAxNGVlLTNkZDUtNGRmZi1iYzE2LTgxNTU3MTFiN2UwMlwiLFwibmJmXCI6MTU4NTAxMDgyMSxcInRpZFwiOlwiOGEzYjdkZDUtZTFjZi00OTY1LWFlMmItZDIwZjE4OGU2ZWMyXCIsXCJhZGRcIjpcIjB4OTFmYmU3NGJlNmM2YmZkOGRkZGRkOTMwMTFiMDU5YjkyNTNmMTA3ODU2NDk3MzhiYTIxN2U1MWUwZTNkZjEzODFkMjBmNTIxYTM2NDFmMjNlYjk5Y2NiMzRlM2JjNWQ5NjMzMmZkZWJjOGVmYTUwY2RiNDE1ZTQ1NTAwOTUyY2QxY1wifSJd';
+
+        try {
+            $this->token->validate($invalid_signer_did_token);
+        } catch (\MagicAdmin\Exception\DIDTokenException $e) {
+            static::assertSame($e->getMessage(), 'Signature mismatch between "proof" and "claim". Please generate a new token with an intended issuer.');
+        }
+    }
+
+    public function testValidateRaisesErrorIfDidTokenIsExpired()
+    {
+        $expired_did_token = 'WyIweGE3MDUzYzg3OTI2ZjMzZDBjMTZiMjMyYjYwMWYxZDc2NmRiNWY3YWM4MTg2MzUyMzY4ZjAyMzIyMGEwNzJjYzkzM2JjYjI2MmU4ODQyNWViZDA0MzcyZGU3YTc0NzMwYjRmYWYzOGU0ZjgwNmYzOTJjMTVkNzY2YmVkMjVlZmUxMWIiLCJ7XCJpYXRcIjoxNTg1MDEwODM1LFwiZXh0XCI6MTU4NTAxMDgzNixcImlzc1wiOlwiZGlkOmV0aHI6MHhCMmVjOWI2MTY5OTc2MjQ5MWI2NTQyMjc4RTlkRkVDOTA1MGY4MDg5XCIsXCJzdWJcIjpcIjZ0RlhUZlJ4eWt3TUtPT2pTTWJkUHJFTXJwVWwzbTNqOERReWNGcU8ydHc9XCIsXCJhdWRcIjpcImRpZDptYWdpYzpkNGMwMjgxYi04YzViLTQ5NDMtODUwOS0xNDIxNzUxYTNjNzdcIixcIm5iZlwiOjE1ODUwMTA4MzUsXCJ0aWRcIjpcImFjMmE4YzFjLWE4OWEtNDgwOC1hY2QxLWM1ODg1ZTI2YWZiY1wiLFwiYWRkXCI6XCIweDkxZmJlNzRiZTZjNmJmZDhkZGRkZDkzMDExYjA1OWI5MjUzZjEwNzg1NjQ5NzM4YmEyMTdlNTFlMGUzZGYxMzgxZDIwZjUyMWEzNjQxZjIzZWI5OWNjYjM0ZTNiYzVkOTYzMzJmZGViYzhlZmE1MGNkYjQxNWU0NTUwMDk1MmNkMWNcIn0iXQ==';
+
+        try {
+            $this->token->validate($expired_did_token);
+        } catch (\MagicAdmin\Exception\DIDTokenException $e) {
+            static::assertSame($e->getMessage(), 'Given DID token has expired. Please generate a new one.');
+        }
+    }
+
+    public function testValidateRaisesErrorIfDidTokenCannotBeUsedYet()
+    {
+        $valid_future_marked_did_token = 'WyIweDkzZjRiNTViYzRlN2E1ZWJkZTdmMzVkYzczMWE5NWFmOGYwZjVlMWQyMWQ5ZDYwZWQxM2Y4YmYzMmNiN2UwOTQ1MDM0MGI1Y2IyNTIxODZkNWQ3OTFiOTAyODZhYmY1NzM3YzMxN2M5NzNhMmQzMGY0MWZmYmFlNGU0NTdmMjE4MWIiLCJ7XCJpYXRcIjoxNTkxOTE0NTgyLFwiZXh0XCI6MjIyMjcxNDU4MixcImlzc1wiOlwiZGlkOmV0aHI6MHg0YzMzMmQ5QzRhMmEwNjY1YzNmODg1MTU1YjlFOTFmZEIzMDBlRTc2XCIsXCJzdWJcIjpcIms4NUtaR09Ycl9vMTYxNGdFVGN6Yzlac0phTjV4cjF2TVFXSWhnbjQ1Slk9XCIsXCJhdWRcIjpcImRpZDptYWdpYzoyMWI4ZjRkZS02ZmIzLTQ0M2YtOGM0MC04ODcwODJjNDQ1MjNcIixcIm5iZlwiOjE5MDczMTQ1ODIsXCJ0aWRcIjpcIjVhMjhjMjQwLWRmYzYtNDg2Ni04ODk1LTVkYzBhOTVkNWJkN1wiLFwiYWRkXCI6XCIweGRlMmI1ODgyNjUyZGExOTY4YWNlZTIyYWUyNGI2OWYxNThlZjg1NDQzOGE0OTlmMThjZGZlZDU3MzEwOGIxNzExYjQ2OWQ3MzQ5NzdhNGQ4NGJlM2RiODc2OTBkZjFmZjk4MTVjN2Y3NDIxNjIxMGY4Y2JhMGJmYzQ2ZGIwYjhkMWNcIn0iXQ==';
+
+        try {
+            $this->token->validate($valid_future_marked_did_token);
+        } catch (\MagicAdmin\Exception\DIDTokenException $e) {
+            static::assertSame($e->getMessage(), 'Given DID token cannot be used at this time. Please check the "nbf" field and regenerate a new token with a suitable value.');
+        }
+    }
+}
