@@ -41,7 +41,7 @@ class Token
     {
         try {
             $decoded_did_token = \json_decode(\utf8_decode(\base64_decode($did_token, true)));
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new \MagicAdmin\Exception\DIDTokenException(
                 'DID token is malformed. It has to be a based64 encoded JSON serialized string. DIDTokenException(' . $e->getMessage() . ')'
             );
@@ -57,7 +57,7 @@ class Token
 
         try {
             $claim = \json_decode($decoded_did_token[1]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new \MagicAdmin\Exception\DIDTokenException(
                 'DID token is malformed. Given claim should be a JSON serialized string. DIDTokenException(' . $e->getMessage() . ')'
             );
