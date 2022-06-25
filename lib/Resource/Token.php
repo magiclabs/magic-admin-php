@@ -2,7 +2,6 @@
 
 namespace MagicAdmin\Resource;
 
-use MagicAdmin\Exception;
 use MagicAdmin\Util\Eth;
 
 \define('EXPECTED_DID_TOKEN_CONTENT_LENGTH', 2);
