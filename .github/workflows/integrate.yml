@@ -129,4 +129,4 @@ jobs:
         run: "wget https://cs.symfony.com/download/php-cs-fixer-v3.phar"
 
       - name: "Check coding style"
-        run: "php ./php-cs-fixer-v3.phar fix -v --using-cache=no ."
+        run: "php ./php-cs-fixer-v3.phar fix --using-cache=no --dry-run --diff ."
