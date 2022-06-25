@@ -50,7 +50,6 @@ jobs:
           - "7.4"
         dependencies:
           - "lowest"
-          - "locked"
           - "highest"
     steps:
       - name: "Set up PHP"
