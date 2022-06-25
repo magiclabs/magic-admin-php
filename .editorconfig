@@ -1,4 +1,4 @@
-; https://editorconfig.org/
+# https://editorconfig.org/
 
 root = true
 
@@ -9,6 +9,9 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 end_of_line = lf
 charset = utf-8
+block_comment_start = /*
+block_comment = *
+block_comment_end = */
 
 [*.{json,yml}]
 indent_size = 2
