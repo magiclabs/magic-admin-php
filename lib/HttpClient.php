@@ -158,7 +158,7 @@ class HttpClient
                 }
                 \curl_close($this->ch);
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new \MagicAdmin\Exception\ApiConnectionException(
                 'Unexpected error thrown while communicating to Magic. ' .
                 'Please reach out to support@magic.link if the problem continues. ' .
@@ -256,11 +256,11 @@ class HttpClient
 
         throw new \MagicAdmin\Exception\ApiException(
             '',
-            \array_key_exists('status', $resp_content) ? $resp_content->status : null,
+            \property_exists($resp_content, 'status') ? $resp_content->status : null,
             $status_code,
-            \array_key_exists('data', $resp_content) ? $resp_content->data : null,
-            \array_key_exists('message', $resp_content) ? $resp_content->message : null,
-            \array_key_exists('error_code', $resp_content) ? $resp_content->error_code : null,
+            \property_exists($resp_content, 'data') ? $resp_content->data : null,
+            \property_exists($resp_content, 'message') ? $resp_content->message : null,
+            \property_exists($resp_content, 'error_code') ? $resp_content->error_code : null,
             $request_params,
             $request_data,
             $method

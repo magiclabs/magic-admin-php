@@ -2,8 +2,6 @@
 
 namespace MagicAdmin\Util;
 
-use MagicAdmin\Exception;
-
 class DidToken
 {
     /**
@@ -23,10 +21,10 @@ class DidToken
             $issuer_split = \explode(':', $issuer);
 
             return $issuer_split[2];
-        } catch (Exception $e) {
-            throw new DIDTokenException(
+        } catch (\Exception $e) {
+            throw new \MagicAdmin\Exception\DIDTokenException(
                 'Given issuer (' . $issuer . ') is malformed. Please make sure it follows the ' .
-                '`did:method-name:method-specific-id`' . \get_class($didTokenError) . '(' . $e->getMessage() . ')'
+                '`did:method-name:method-specific-id` (' . $e->getMessage() . ')'
             );
         }
     }
