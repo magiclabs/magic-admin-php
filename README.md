@@ -121,10 +121,11 @@ Or to run an individual test file:
 ```
 
 The library uses [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) for code formatting.
+PHP CS Fixer must be [installed globally](https://cs.symfony.com/doc/installation.html).
 Code must be formatted before PRs are submitted. Run the formatter with:
 
 ```bash
-./vendor/bin/php-cs-fixer fix -v --using-cache=no .
+php-cs-fixer fix -v --using-cache=no .
 ```
 
 ## Changelog
