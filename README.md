@@ -17,17 +17,16 @@ See the [Magic doc](https://docs.magic.link/admin-sdk/php)!
 
 ### Composer
 
-You can install the bindings via [Composer](http://getcomposer.org/). Run the following command:
+You can install the bindings via [Composer](https://getcomposer.org/). Run the following command:
 
 ```bash
 composer require magiclabs/magic-admin-php
-
 ```
 
 To use the bindings, use Composer's [autoload](https://getcomposer.org/doc/01-basic-usage.md#autoloading):
 
 ```php
-require_once('vendor/autoload.php');
+require_once __DIR__ . '/vendor/autoload.php';
 ```
 
 ### Manual Installation
@@ -35,15 +34,15 @@ require_once('vendor/autoload.php');
 If you do not wish to use Composer, you can download the [latest release](https://github.com/magiclabs/magic-admin-php). Then, to use the bindings, include the `init.php` file.
 
 ```php
-require_once('/path/to/magic-admin-php/init.php');
+require_once __DIR__ . '/path/to/magic-admin-php/init.php';
 ```
 
 ### Dependencies
 
 The bindings require the following extensions in order to work properly. If you use Composer, these dependencies should be handled automatically. If you install manually, you'll want to make sure that these extensions are available.
 
--   [`curl`](https://secure.php.net/manual/en/book.curl.php)
--   [`gmp`](https://www.php.net/manual/en/book.gmp.php) | or [`bcmath`](https://www.php.net/manual/en/book.bc.php) (see below)
+- [`curl`](https://secure.php.net/manual/en/book.curl.php)
+- [`gmp`](https://www.php.net/manual/en/book.gmp.php) or [`bcmath`](https://www.php.net/manual/en/book.bc.php) see below
 
 For optimal performance ensure that your platform has the `gmp` extension installed. If your platform does not support `gmp` then `bcmath` may be used as an alternative, but note that `bcmath` is significantly slower than `gmp`.
 
@@ -58,13 +57,13 @@ PHP 5.6.0 and later.
 Simple usage for login:
 
 ```php
-  require_once('vendor/autoload.php');
+  require_once __DIR__ . '/vendor/autoload.php';
 
   $did_token = \MagicAdmin\Util\Http::parse_authorization_header_value(
     $authorization_header
   );
 
-  if ($did_token == null) {
+  if ($did_token === null) {
     // DIDT is missing from the original HTTP request header. You can handle this by
     // remapping it to your application error.
   }
@@ -75,29 +74,29 @@ Simple usage for login:
     $magic->token->validate($did_token);
     $issuer = $magic->token->get_issuer($did_token);
   } catch (\MagicAdmin\Exception\DIDTokenException $e) {
-    // DIDT is malformed. You can handle this by remapping it to your application
-    // error.
+    // DIDT is malformed. You can handle this by remapping it
+    // to your application error.
   }
 ```
 
 ### Configure Network Strategy
+
 The `Magic` object also takes in `retries`, `timeout` and `backoff` as optional arguments at the object instantiation time so you can override those values for your application setup.
 
 ```php
 $magic = new \MagicAdmin\Magic(
   '<YOUR_API_SECRET_KEY>',
-  5,    // timeout.
-  3,    // retries.
-  0.01  // backoff.
+  5,    // timeout
+  3,    // retries
+  0.01  // backoff
 );
-
 ```
 
 See more examples from [Magic PHP doc](https://docs.magic.link/admin-sdk/php/examples/user-signup).
 
 ## Development
 
-Get [Composer][composer]. For example, on Mac OS:
+Get [Composer](https://getcomposer.org/). For example, on Mac OS:
 
 ```bash
 brew install composer
@@ -121,15 +120,17 @@ Or to run an individual test file:
 ./vendor/bin/phpunit tests/MagicTest.php
 ```
 
-The library uses [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) for code formatting. Code must be formatted before PRs are submitted. Run the formatter with:
+The library uses [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) for code formatting.
+Code must be formatted before PRs are submitted. Run the formatter with:
 
 ```bash
-php-cs-fixer fix -v --using-cache=no .
+./vendor/bin/php-cs-fixer fix -v --using-cache=no .
 ```
 
 ## Changelog
+
 See [Changelog](./CHANGELOG.md)
 
 ## License
-See [License](./LICENSE.txt)
 
+See [License](./LICENSE.txt)
