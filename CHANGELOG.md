@@ -14,7 +14,7 @@
 
 ## `0.1.3` - 6/26/2022
 
-#### Changed
+#### Fixed
 
 - PR-#14: Fix problems reported by PHPStan
 
