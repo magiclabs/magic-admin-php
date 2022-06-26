@@ -12,6 +12,12 @@
 
 - <PR-#ISSUE> ...
 
+## `0.1.3` - 6/26/2022
+
+#### Fixed
+
+- PR-#14: Fix problems reported by PHPStan
+
 ## `0.1.2` - 12/22/2020
 
 #### Changed
