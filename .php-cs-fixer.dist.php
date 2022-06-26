@@ -1,7 +1,8 @@
 <?php
 
-return PhpCsFixer\Config::create()
-    ->setRiskyAllowed(true)
+$config = new PhpCsFixer\Config();
+
+return $config->setRiskyAllowed(true)
     ->setRules([
         // Rulesets
         '@PSR2' => true,
@@ -14,7 +15,7 @@ return PhpCsFixer\Config::create()
         'fopen_flags' => true,
         'linebreak_after_opening_tag' => true,
         'native_function_invocation' => true,
-        'method_argument_space' => ['ensure_fully_multiline' => true],
+        'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
         'ordered_imports' => true,
 
         // --- Diffs from @PhpCsFixer / @PhpCsFixer:risky ---

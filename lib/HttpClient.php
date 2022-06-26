@@ -269,6 +269,6 @@ class HttpClient
 
     public function get_version()
     {
-        return \file_get_contents(MAGIC_ADMIN_PHP_PATH . '/VERSION');
+        return \trim(\file_get_contents(MAGIC_ADMIN_PHP_PATH . '/VERSION'));
     }
 }
