@@ -10,7 +10,7 @@ final class TokenTest extends TestCase
 {
     public $token;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->token = new \MagicAdmin\Resource\Token();
     }
@@ -56,7 +56,7 @@ final class TokenDecodeTest extends TestCase
 {
     public $token;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->token = new \MagicAdmin\Resource\Token();
     }
@@ -103,7 +103,7 @@ final class TokenValidateTest extends TestCase
 {
     public $token;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->token = new \MagicAdmin\Resource\Token();
     }

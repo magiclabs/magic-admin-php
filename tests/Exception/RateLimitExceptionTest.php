@@ -10,7 +10,7 @@ final class RateLimitingExceptionTest extends TestCase
 {
     public $rateLimitException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->rateLimitException = new MagicAdmin\Exception\RateLimitingException(
             'Magic is amazing',

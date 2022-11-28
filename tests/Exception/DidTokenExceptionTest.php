@@ -10,7 +10,7 @@ final class DidTokenExceptionTest extends TestCase
 {
     public $dIDTokenException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dIDTokenException = new MagicAdmin\Exception\DIDTokenException('Magic is amazing');
     }

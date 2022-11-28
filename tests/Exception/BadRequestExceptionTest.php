@@ -10,7 +10,7 @@ final class BadRequestExceptionTest extends TestCase
 {
     public $badRequestException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->badRequestException = new MagicAdmin\Exception\BadRequestException(
             'Magic is amazing',

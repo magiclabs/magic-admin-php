@@ -12,7 +12,7 @@ final class UserTest extends TestCase
     private $issuer;
     private $public_address;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $api_secret_key = 'magic_admin';
         $timeout = 10;

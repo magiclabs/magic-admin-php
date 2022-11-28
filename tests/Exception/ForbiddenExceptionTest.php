@@ -10,7 +10,7 @@ final class ForbiddenExceptionTest extends TestCase
 {
     public $forbiddenException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->forbiddenException = new MagicAdmin\Exception\ForbiddenException(
             'Magic is amazing',

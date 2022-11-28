@@ -13,7 +13,7 @@ final class MagicResponseTest extends TestCase
     public $resp_data = 'magic is amazing';
     public $status_code = 200;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->magicResponse = new \MagicAdmin\MagicResponse($this->content, $this->resp_data, $this->status_code);
     }

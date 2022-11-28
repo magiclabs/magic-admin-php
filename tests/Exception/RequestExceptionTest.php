@@ -10,7 +10,7 @@ final class RequestExceptionTest extends TestCase
 {
     public $requestException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->requestException = new MagicAdmin\Exception\RequestException(
             'Magic is amazing',
