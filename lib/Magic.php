@@ -20,7 +20,6 @@ class Magic
         $backoff_factor = BACKOFF_FACTOR
     ) {
         $this->api_secret_key = $api_secret_key;
-        $this->wallet_type = new \MagicAdmin\Resource\WalletType();
         $this->token = new \MagicAdmin\Resource\Token();
         $this->user = new \MagicAdmin\Resource\User(
             $this->api_secret_key,
