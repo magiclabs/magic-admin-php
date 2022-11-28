@@ -17,7 +17,7 @@ final class MagicTest extends TestCase
     public $retries;
     public $backoff_factor;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->api_secret_key = 'magic_admin';
         $this->timeout = 10;

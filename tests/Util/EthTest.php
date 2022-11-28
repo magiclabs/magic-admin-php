@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class EthTest extends TestCase
 {
-    public function testEcRecover()
+    public function testEcRecover(): void
     {
         $tests = [
             [

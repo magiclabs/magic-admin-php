@@ -10,7 +10,7 @@ final class ApiExceptionTest extends TestCase
 {
     public $apiException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->apiException = new MagicAdmin\Exception\ApiException(
             'Magic is amazing',

@@ -11,7 +11,7 @@ final class DidTokenTest extends TestCase
     private $public_address;
     private $issuer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->public_address = '0x4B73C58370AEfcEf86A6021afCDe5673511376B2';
         $this->issuer = 'did:ethr:0x4B73C58370AEfcEf86A6021afCDe5673511376B2';

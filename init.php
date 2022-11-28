@@ -6,6 +6,7 @@ require __DIR__ . '/lib/Magic.php';
 // Resources
 require __DIR__ . '/lib/Resource/Token.php';
 require __DIR__ . '/lib/Resource/User.php';
+require __DIR__ . '/lib/Resource/Wallet.php';
 
 // HttpClient
 require __DIR__ . '/lib/HttpClient.php';

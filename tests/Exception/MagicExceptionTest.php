@@ -10,7 +10,7 @@ final class MagicExceptionTest extends TestCase
 {
     public $magicException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->magicException = new MagicAdmin\Exception\MagicException('Magic is amazing');
     }

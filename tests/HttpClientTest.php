@@ -11,7 +11,7 @@ final class HttpClientTest extends TestCase
 {
     public $requestsClient;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $timeout = 10;
         $retries = 3;

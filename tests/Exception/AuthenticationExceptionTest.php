@@ -10,7 +10,7 @@ final class AuthenticationExceptionTest extends TestCase
 {
     public $authenticationException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->authenticationException = new MagicAdmin\Exception\AuthenticationException(
             'Magic is amazing',

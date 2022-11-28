@@ -11,6 +11,7 @@ class Magic
     public $token;
     public $api_secret_key;
     public $user;
+    public $wallet_type;
 
     public function __construct(
         $api_secret_key = null,
