@@ -28,4 +28,9 @@ class Magic
             $backoff_factor
         );
     }
+
+    public function _set_platform($platform)
+    {
+        $this->user->_set_platform($platform);
+    }
 }

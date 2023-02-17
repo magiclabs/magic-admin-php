@@ -22,6 +22,7 @@ class HttpClient
     public $_backoff_factor;
     public $_base_url;
     public $_api_secret_key;
+    public $_platform = 'php';
     public $ch;
 
     public function __construct($api_secret_key, $timeout, $retries, $backoff_factor)
@@ -68,6 +69,11 @@ class HttpClient
         $user_agent[] = 'sdk_version: ' . $this->get_version();
         $user_agent[] = 'publisher: Magic Labs Inc.';
         $user_agent[] = 'http_lib: magic-admin-php';
+        $user_agent[] = 'platform: '.$this->_platform;
+
+        if (isset($_SERVER['SERVER_NAME'])) {
+            $user_agent[] = 'server_name: '.$_SERVER['SERVER_NAME'];            
+        }
 
         return $user_agent;
     }
@@ -270,5 +276,10 @@ class HttpClient
     public function get_version()
     {
         return \file_get_contents(MAGIC_ADMIN_PHP_PATH . '/VERSION');
+    }
+
+    public function _set_platform($platform)
+    {
+        $this->_platform = $platform;
     }
 }

@@ -12,6 +12,12 @@
 
 - <PR-#ISSUE> ...
 
+## `0.3.0` - 2/17/2023
+
+#### Added
+
+- PR-#19: Add additional parameters to HttpClient user-agent
+
 ## `0.2.0` - 11/29/2022
 
 #### Added

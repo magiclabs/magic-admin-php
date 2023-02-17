@@ -17,6 +17,7 @@ final class HttpClientTest extends TestCase
         $retries = 3;
         $backoff_factor = 0.02;
         $api_secret_key = 'magic_admin';
+        $platform = 'test_platform';
 
         $this->requestsClient = new \MagicAdmin\HttpClient(
             $api_secret_key,
@@ -24,6 +25,8 @@ final class HttpClientTest extends TestCase
             $retries,
             $backoff_factor
         );
+
+        $this->requestsClient->_set_platform($platform);
     }
 
     public function testRetrieves()
@@ -54,6 +57,8 @@ final class HttpClientTest extends TestCase
         $expected_array[] = 'sdk_version: ' . $this->requestsClient->get_version();
         $expected_array[] = 'publisher: Magic Labs Inc.';
         $expected_array[] = 'http_lib: magic-admin-php';
+        $expected_array[] = 'platform: test_platform';
+        $expected_array[] = 'server_name: local_phpunit';
 
         static::assertSame($this->requestsClient->_get_user_agent(), $expected_array);
     }
@@ -69,6 +74,8 @@ final class HttpClientTest extends TestCase
                 'sdk_version: ' . $this->requestsClient->get_version(),
                 'publisher: Magic Labs Inc.',
                 'http_lib: magic-admin-php',
+                'platform: test_platform',
+                'server_name: local_phpunit',
             ]
         );
         $expected_headers = [];
