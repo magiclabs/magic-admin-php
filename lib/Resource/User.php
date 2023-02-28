@@ -65,4 +65,9 @@ class User
     {
         return $this->logout_by_issuer($this->token->get_issuer($did_token));
     }
+
+    public function _set_platform($platform)
+    {
+        $this->request_client->_set_platform($platform);
+    }
 }

@@ -15,6 +15,7 @@ composer.lock
 
 # Ignore PHPUnit coverage file
 clover.xml
+.phpunit.result.cache
 
 # Ignore IDE's configuration files
 .idea
