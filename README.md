@@ -11,7 +11,7 @@ The Magic Admin PHP SDK provides convenient ways for developers to interact with
 * [License](#license)
 
 ## Documentation
-See the [Magic doc](https://docs.magic.link/admin-sdk/php)!
+See the [Magic doc](https://magic.link/docs/auth/api-reference/server-side-sdks/php)!
 
 ## Installation
 
