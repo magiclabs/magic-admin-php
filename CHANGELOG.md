@@ -12,6 +12,15 @@
 
 - <PR-#ISSUE> ...
 
+## `1.0.0` - 7/5/2023
+
+#### Added
+
+- PR-#21: Add Magic Connect Admin SDK support for Token Resource.
+  - [Security Enhancement]: Validate `aud` using Magic client ID.
+  - Pull client ID from Magic servers if not provided in constructor.
+
+
 ## `0.3.0` - 2/17/2023
 
 #### Added

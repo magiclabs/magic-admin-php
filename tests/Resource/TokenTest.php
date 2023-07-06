@@ -12,7 +12,8 @@ final class TokenTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->token = new \MagicAdmin\Resource\Token();
+      $client_id = "did:magic:731848cc-084e-41ff-bbdf-7f103817ea6b";
+      $this->token = new \MagicAdmin\Resource\Token($client_id);
     }
 
     public function testCheckRequiredFields()
@@ -58,7 +59,8 @@ final class TokenDecodeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->token = new \MagicAdmin\Resource\Token();
+      $client_id = "client_id";
+      $this->token = new \MagicAdmin\Resource\Token($client_id);
     }
 
     public function testDecodeRaisesErrorIfDidTokenIsMalformed()
@@ -105,7 +107,8 @@ final class TokenValidateTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->token = new \MagicAdmin\Resource\Token();
+      $client_id = 'did:magic:f54168e9-9ce9-47f2-81c8-7cb2a96b26ba';
+      $this->token = new \MagicAdmin\Resource\Token($client_id);
     }
 
     /**

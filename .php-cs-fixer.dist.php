@@ -1,6 +1,7 @@
 <?php
+$config = new PhpCsFixer\Config();
 
-return PhpCsFixer\Config::create()
+return $config
     ->setRiskyAllowed(true)
     ->setRules([
         // Rulesets
@@ -14,7 +15,7 @@ return PhpCsFixer\Config::create()
         'fopen_flags' => true,
         'linebreak_after_opening_tag' => true,
         'native_function_invocation' => true,
-        'method_argument_space' => ['ensure_fully_multiline' => true],
+//        'method_argument_space' => ['ensure_fully_multiline' => true],
         'ordered_imports' => true,
 
         // --- Diffs from @PhpCsFixer / @PhpCsFixer:risky ---
