@@ -1,5 +1,6 @@
 <?php
 
+use MagicAdmin\HttpClient;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,19 +15,17 @@ final class UserTest extends TestCase
     private $wallet_type;
     private $wallet;
     private $wallets;
+    private $token;
 
     protected function setUp(): void
     {
-        $api_secret_key = 'magic_admin';
-        $timeout = 10;
-        $retries = 3;
-        $backoff_factor = 0.02;
+        $this->mockedHttpClient = $this->createMock(HttpClient::class);
+        $client_id = "client_id";
+        $this->token = new \MagicAdmin\Resource\Token($client_id);
         $this->user = new \MagicAdmin\Resource\User(
-            $api_secret_key,
-            $timeout,
-            $retries,
-            $backoff_factor
-        );
+              $this->mockedHttpClient,
+              $this->token
+          );
         $this->issuer = 'did:ethr:0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4';
         $this->public_address = '0xabA53bd22b2673C6c42ffA11C251B45D8CcBe4a4';
         $this->wallet_type = \MagicAdmin\Resource\Wallet::SOLANA;

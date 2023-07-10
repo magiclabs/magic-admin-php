@@ -8,6 +8,13 @@ use MagicAdmin\Util\Eth;
 
 class Token
 {
+    private $client_id;
+
+    public function __construct($client_id)
+    {
+        $this->client_id = $client_id;
+    }
+
     public $required_fields = [
         'iat',
         'ext',
@@ -23,13 +30,13 @@ class Token
         $missing_fields = [];
         foreach ($this->required_fields as $field) {
             if (\is_array($claim) && !isset($claim[$field])) {
-                \array_push($missing_fields, $field);
+                $missing_fields[] = $field;
             }
         }
 
         if (\count($missing_fields) > 0) {
             throw new \MagicAdmin\Exception\DIDTokenException(
-                'DID token is missing required field(s):' . \json_encode($missing_fields)
+                'DID token is missing required field(s):' . json_encode($missing_fields)
             );
         }
 
@@ -39,7 +46,7 @@ class Token
     public function decode($did_token)
     {
         try {
-            $decoded_did_token = \json_decode(\utf8_decode(\base64_decode($did_token, true)));
+            $decoded_did_token = json_decode(utf8_decode(base64_decode($did_token, true)));
         } catch (\Exception $e) {
             throw new \MagicAdmin\Exception\DIDTokenException(
                 'DID token is malformed. It has to be a based64 encoded JSON serialized string. DIDTokenException(' . $e->getMessage() . ')'
@@ -55,7 +62,7 @@ class Token
         $proof = $decoded_did_token[0];
 
         try {
-            $claim = \json_decode($decoded_did_token[1]);
+            $claim = json_decode($decoded_did_token[1]);
         } catch (\Exception $e) {
             throw new \MagicAdmin\Exception\DIDTokenException(
                 'DID token is malformed. Given claim should be a JSON serialized string. DIDTokenException(' . $e->getMessage() . ')'
@@ -83,9 +90,9 @@ class Token
     {
         list($proof, $claim) = $this->decode($did_token);
 
-        $recovered_address = Eth::ecRecover(\json_encode($claim), $proof);
+        $recovered_address = Eth::ecRecover(json_encode($claim), $proof);
 
-        if ($recovered_address !== \strtolower($this->get_public_address($did_token))) {
+        if ($recovered_address !== strtolower($this->get_public_address($did_token))) {
             throw new \MagicAdmin\Exception\DIDTokenException(
                 'Signature mismatch between "proof" and "claim". Please generate a new token with an intended issuer.'
             );
@@ -102,6 +109,12 @@ class Token
         if ($current_time_in_s < \MagicAdmin\Util\Time::apply_did_token_nbf_grace_period($claim->nbf)) {
             throw new \MagicAdmin\Exception\DIDTokenException(
                 'Given DID token cannot be used at this time. Please check the "nbf" field and regenerate a new token with a suitable value.'
+            );
+        }
+
+        if ($claim->aud !== $this->client_id) {
+            throw new \MagicAdmin\Exception\DIDTokenException(
+                'Audience does not match client ID. Please ensure your secret key matches the application which generated the DID token.'
             );
         }
     }

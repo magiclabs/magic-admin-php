@@ -10,17 +10,17 @@ class User
     public $request_client;
     public $token;
 
-    public function __construct($api_secret_key, $timeout, $retries, $backoff_factor)
+    public function __construct($request_client, $token)
     {
-        $this->token = new Token();
-        $this->request_client = new \MagicAdmin\HttpClient($api_secret_key, $timeout, $retries, $backoff_factor);
+      $this->request_client = $request_client;
+      $this->token = $token;
     }
 
     public function get_metadata_by_issuer_and_wallet($issuer, $wallet_type)
     {
         return $this->request_client->request('get', $this->v1_user_info, ['issuer' => $issuer, 'wallet_type' => $wallet_type]);
     }
-    
+
     public function get_metadata_by_issuer($issuer)
     {
         return $this->get_metadata_by_issuer_and_wallet($issuer, Wallet::NONE);
@@ -30,7 +30,7 @@ class User
     {
         return $this->get_metadata_by_issuer(
             \MagicAdmin\Util\DidToken::construct_issuer_with_public_address($public_address),
-            $wallet_type,
+            $wallet_type
         );
     }
 
